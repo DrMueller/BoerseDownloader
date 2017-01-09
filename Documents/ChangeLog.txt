@@ -1,6 +1,0 @@
-
-2.2
--Removed BoerseUser-Singleton and added Dependency Injection to it.
--FxCop
--StyleCop
--Changed from Files to LocalDB
