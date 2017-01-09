@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="MMU.BoerseDownloader.WpfUI.Views.DownloadEntriesOverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:uc="clr-namespace:MMU.BoerseDownloader.WpfUI.UserControls"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:xf="clr-namespace:MMU.BoerseDownloader.WpfUI.Infrastructure.XamlFunctionalities"
+             mc:Ignorable="d"
+             xf:InputBindingsBehavior.TakesInputBindingPrecedence="True"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding Path=CopySelectedUrlsCommand, Mode=OneTime}" Modifiers="Ctrl" Key="C" />
+        <KeyBinding Command="{Binding Path=SwitchSelectedLinksVisitedStatus, Mode=OneTime}" Modifiers="Ctrl" Key="V" />
+    </UserControl.InputBindings>
+
+    <UserControl.Resources>
+        <CollectionViewSource Source="{Binding DownloadEntries}" x:Key="cvs">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="DownloadContextName" Direction="Ascending" />
+                <scm:SortDescription PropertyName="DownloadEntryTitle" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <uc:DownloadEntriesFilterUserControl
+            Grid.Row="0"
+            ShowVisitedDownloadEntries="{Binding ShowVisitedDownloadEntries}" />
+
+        <DataGrid
+            Grid.Row="1"
+            Style="{StaticResource StyleDataGridDownloadEntries}"
+            RowHeaderStyle="{StaticResource StyleDataGridRowHeader}"
+            ItemsSource="{Binding Source={StaticResource cvs}}"
+            xf:DataGridMultiSelectBinding.SelectedItemsChangedHandler="{Binding ResultsSelectionChangedCommand}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="V">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox
+                                IsChecked="{Binding DownloadLinkIsVisited, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Width="120" Header="Name" Binding="{Binding DownloadContextName}" IsReadOnly="True" />
+                <DataGridTextColumn Width="300" Header="Title" Binding="{Binding DownloadEntryTitleFormatted}"
+                                    IsReadOnly="True" />
+                <DataGridHyperlinkColumn Width="*" Header="URL" Binding="{Binding DownloadLink}" IsReadOnly="True">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style>
+                            <EventSetter Event="Hyperlink.Click" Handler="EntryUrl_Clicked" />
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
+                </DataGridHyperlinkColumn>
+                <DataGridTextColumn
+                    Width="150"
+                    Header="Thread Update"
+                    Binding="{Binding LastThreadUpdate, StringFormat={}\{0:dd.MM.yyyy HH:mm\}}"
+                    IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel
+            Margin="0,10,0,0" Grid.Row="2"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                DataContext="{Binding ReloadAllDownloadEntries}"
+                Content="{Binding DisplayName}"
+                Command="{Binding Command}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

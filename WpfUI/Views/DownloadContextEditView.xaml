@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="MMU.BoerseDownloader.WpfUI.Views.DownloadContextEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MMU.BoerseDownloader.WpfUI.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="ID:" />
+                <Label Grid.Column="1" Content="{Binding DownloadEntryID, Mode=OneWay}" />
+            </Grid>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Context-Name:" />
+                <TextBox Grid.Column="1" Text="{Binding DownloadEntryName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource StyleTextBoxDefaultSingleLine}" />
+            </Grid>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Link-Provider:" />
+                <ComboBox Grid.Column="1"
+                          ItemsSource="{Binding BoerseLinkProviders, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding DownloadEntryBoerseLinkProvider}" />
+            </Grid>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Thread-URL:" />
+                <TextBox Grid.Column="1" Text="{Binding DownloadEntryThreadUrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource StyleTextBoxDefaultSingleLine}" />
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button DataContext="{Binding SaveDownloadContextEntry}" Content="{Binding DisplayName}"
+                    Command="{Binding Command}" />
+            <Button DataContext="{Binding CancelEdit}" Content="{Binding DisplayName}" Command="{Binding Command}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

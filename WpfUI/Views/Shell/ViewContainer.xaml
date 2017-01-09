@@ -1,0 +1,63 @@
+﻿<Window x:Class="MMU.BoerseDownloader.WpfUI.Views.Shell.ViewContainer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:uc="clr-namespace:MMU.BoerseDownloader.WpfUI.UserControls"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Boerse-Downloader"
+        x:Name="ViewContainerWindow"
+        Icon="/MMU.BoerseDownloader.WpfUI;component/Resources/B.ico"
+        Style="{StaticResource ContainerWindow}"
+        d:DesignHeight="300" d:DesignWidth="300">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Path=CloseCommand, Mode=OneTime}"
+                    CommandParameter="{Binding ElementName=ViewContainerWindow}" Key="Esc" />
+    </Window.InputBindings>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Center" Grid.Row="0" Margin="0,0,0,10">
+            <uc:InformationBarControl
+                InformationText="{Binding InformationText, Mode=OneWay}"
+                SelectedInformationType="{Binding SelectedInformationType, Mode=OneWay}" />
+        </Grid>
+
+        <Grid Margin="0,10,0,10" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="150" Width="150" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <HeaderedContentControl
+                Grid.Column="0"
+                Content="{Binding Path=NavigationVmcs}"
+                ContentTemplate="{StaticResource DtNavigationItems}"
+                Header="Commands"
+                HeaderTemplate="{StaticResource DtHeader}" />
+
+            <GridSplitter Grid.Column="1" Width="5" Margin="0,0,2,0" HorizontalAlignment="Stretch" />
+
+            <HeaderedContentControl Grid.Column="2"
+                                    Content="{Binding Path=CurrentContent}"
+                                    Header="{Binding Path=CurrentContent.DisplayName, Mode=OneWay}"
+                                    Template="{StaticResource CtHeaderedContentControlMainView}"
+                                    HeaderTemplate="{StaticResource DtHeader}" />
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button
+                Content="Close"
+                CommandParameter="{Binding ElementName=ViewContainerWindow}"
+                Command="{Binding Path=CloseCommand, Mode=OneTime}" />
+        </StackPanel>
+    </Grid>
+</Window>

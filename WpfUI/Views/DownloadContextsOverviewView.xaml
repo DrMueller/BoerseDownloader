@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="MMU.BoerseDownloader.WpfUI.Views.DownloadContextsOverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xf="clr-namespace:MMU.BoerseDownloader.WpfUI.Infrastructure.XamlFunctionalities"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding DeleteDownloadContextEntry.Command, Mode=OneTime}" Key="Esc" />
+    </UserControl.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="280" Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DataGrid
+            xf:EventCommandBinding.Command="{Binding EditSelectedEntry, Mode=OneWay}"
+            xf:EventCommandBinding.EventName="MouseDoubleClick"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            VerticalScrollBarVisibility="Visible"
+            ItemsSource="{Binding DownloadContextEntries}"
+            SelectedItem="{Binding SelectedDownloadContextEntry}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                <DataGridTextColumn Width="100" Header="Provider" Binding="{Binding BoerseLinkProvider}"
+                                    IsReadOnly="True" />
+                <DataGridHyperlinkColumn Width="*" Header="URL" Binding="{Binding ThreadUrl}" IsReadOnly="True">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style>
+                            <EventSetter Event="Hyperlink.Click" Handler="ThreadUrl_Clicked" />
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
+                </DataGridHyperlinkColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Margin="0,10,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1"
+                    Orientation="Horizontal">
+            <Button DataContext="{Binding NewDownloadContextEntry}" Content="{Binding DisplayName}"
+                    Command="{Binding Command}" />
+            <Button DataContext="{Binding EditDownloadContextEntry}" Content="{Binding DisplayName}"
+                    Command="{Binding Command}" />
+            <Button
+                DataContext="{Binding DeleteDownloadContextEntry}"
+                Content="{Binding DisplayName}"
+                Command="{Binding Command}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

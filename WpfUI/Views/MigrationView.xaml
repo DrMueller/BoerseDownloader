@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="MMU.BoerseDownloader.WpfUI.Views.MigrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xf="clr-namespace:MMU.BoerseDownloader.WpfUI.Infrastructure.XamlFunctionalities"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <GroupBox 
+            Grid.Row="0"
+            Header="Migration-Path">
+            <FlowDocumentScrollViewer>
+                <FlowDocument>
+                    <Paragraph>
+                        1. If you're here, you should already have a database on LocalDB named
+                        <Bold>BoerseDownloader</Bold>. Check, if that's the case.
+                    </Paragraph>
+                    <Paragraph>
+                        2. Create a backup of your folders
+                        <Bold>DownloadEntryConfiguration</Bold>,
+                        <Bold>DownloadContext</Bold> and
+                        <Bold>BoerseUser</Bold>.
+                    </Paragraph>
+                    <Paragraph>
+                        3. Rename the folder
+                        <Bold>DownloadEntryConfiguration</Bold> to
+                        <Bold>DownloadEntryConfigurationLegacy</Bold>.
+                    </Paragraph>
+                    <Paragraph>
+                        4. Migrate via the buttons
+                        <Italic>User</Italic>,
+                        <Italic>Contexts</Italic> and
+                        <Italic>Entries</Italic>.
+                    </Paragraph>
+                    <Paragraph>
+                        5. Assure the configured links are all downloading correctly.
+                    </Paragraph>
+                    <Paragraph>
+                        6. Migrate the
+                        <Italic>Identifiers</Italic>. This will enhance the table
+                        <Bold>DownloadEntryConfiguration</Bold> with the GUIDs from the links.
+                        INFO: Currently, the LinkIdentifier takes precedence over the title, bur the title is still used for backward-compatibility.
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </GroupBox>
+
+        <Grid 
+            Grid.Row="1"
+            Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <WrapPanel
+                Grid.Row="0"
+                Orientation="Horizontal"
+                VerticalAlignment="Top">
+                <Button
+                    Content="{Binding DisplayName, Mode=OneWay}"
+                    Command="{Binding Command, Mode=OneWay}"
+                    DataContext="{Binding StartMigratingBoerseUserVmc, Mode=OneWay}"
+                    Margin="0,0,10,0" />
+
+                <Button
+                    Content="{Binding DisplayName, Mode=OneWay}"
+                    Command="{Binding Command, Mode=OneWay}"
+                    DataContext="{Binding StartMigratingDownloadContextsVmc, Mode=OneWay}"
+                    Margin="0,0,10,0" />
+
+                <Button
+                    Content="{Binding DisplayName, Mode=OneWay}"
+                    Command="{Binding Command, Mode=OneWay}"
+                    DataContext="{Binding StartMigrationgDownloadEntryConfigurationsVmc, Mode=OneWay}"
+                    Margin="0,0,10,0" />
+
+                <Button
+                    Content="{Binding DisplayName, Mode=OneWay}"
+                    Command="{Binding Command, Mode=OneWay}"
+                    DataContext="{Binding StartingMigratingDownloadEntryIdentifiersVmc, Mode=OneWay}"
+                    Margin="0,0,10,0" />
+            </WrapPanel>
+
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <Button
+                    Content="{Binding DisplayName, Mode=OneWay}"
+                    Command="{Binding Command, Mode=OneWay}"
+                    DataContext="{Binding StopMigrationVmc, Mode=OneWay}" />
+            </StackPanel>
+        </Grid>
+
+        <DataGrid
+            Grid.Row="2"
+            xf:ScrollToLastItemBinding.Autoscroll="True"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            ItemsSource="{Binding MigrationProcessEntries, Mode=OneWay}"
+            VerticalScrollBarVisibility="Auto" />
+    </Grid>
+</UserControl>

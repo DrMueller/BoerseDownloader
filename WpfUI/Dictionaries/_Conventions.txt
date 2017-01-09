@@ -1,0 +1,25 @@
+Dictionaries:
+Fonts and Font-Sizes (Fonts.xaml)
+Brushes and Colors (Brushes.xaml)
+Generic Control Styles, without keys (CoreStyles.xaml)
+Data Templates and TemplateSelectors (DataTemplates.xaml)
+Converters (Converters.xaml)
+BitmapImages for use as Image sources (Icons.xaml)
+Specific, keyed styles (Styles.xaml)
+
+http://stackoverflow.com/questions/11021844/resource-dictionary-wpf-naming-convention-and-managing-suggestions 
+
+
+Naming-Prefixes:
+
+Border --> Border
+Button --> Btn
+Brush --> Brush
+DataTemplate --> Dt
+Grid --> Grid
+Label --> Lbl
+Style --> Style
+
+
+Elemente mit TargetType:
+Prefix-TargetType-name: StyleButtonNavigation
