@@ -61,10 +61,6 @@ namespace MMU.BoerseDownloader.WpfUI.ViewModels.Shell
                     new ViewModelCommand("Config User", new RelayCommand(() =>
                     {
                         _navigationHandler.NavigateTo<BoerseUserEditViewModel>(ViewModelParameterCollection.Empty);
-                    })),
-                    new ViewModelCommand("Migration", new RelayCommand(() =>
-                    {
-                        _navigationHandler.NavigateTo<MigrationViewModel>(ViewModelParameterCollection.Empty);
                     }))
                 };
             }

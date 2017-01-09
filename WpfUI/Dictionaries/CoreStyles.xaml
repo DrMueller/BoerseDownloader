@@ -18,10 +18,4 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-    <Style TargetType="xctk:ColorPicker">
-        <Setter Property="Height" Value="25" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
 </ResourceDictionary>
