@@ -27,7 +27,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
         {
             const string ALL_PREVIOUS_EPISODES = "Alle bisherigen Episoden";
 
-            var firstDiv = uploadedSpan.GetNextElementOfType("div", Model.Enumerations.HtmlNavigationType.Parent);
+            var firstDiv = uploadedSpan.NavigateToElementOfType("div", Model.Enumerations.HtmlNavigationType.Parent);
             if (firstDiv.InnerText.Contains(ALL_PREVIOUS_EPISODES))
             {
                 return true;
@@ -65,7 +65,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
         private static string GetDownloadEntryTitle(HtmlNode linkElement)
         {
             var parentBlockElement = linkElement.ParentNode;
-            var previousBlockElement = parentBlockElement.GetNextElementOfType("b", Model.Enumerations.HtmlNavigationType.PreviousSibling);
+            var previousBlockElement = parentBlockElement.NavigateToElementOfType("b", Model.Enumerations.HtmlNavigationType.PreviousSibling);
             var result = previousBlockElement.InnerText;
             return result;
         }

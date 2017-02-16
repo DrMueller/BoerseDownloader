@@ -17,29 +17,29 @@ namespace MMU.BoerseDownloader.Integration.Infrastructure.Extensions
             return classAttr.Value;
         }
 
-        internal static HtmlNode GetNextElement(this HtmlNode htmlNode, Func<HtmlNode, bool> predicate, HtmlNavigationType htmlNavigationType)
+        internal static HtmlNode NavigateToElement(this HtmlNode htmlNode, Func<HtmlNode, bool> predicate, HtmlNavigationType htmlNavigationType)
         {
-            var result = GetNextElement(htmlNode, htmlNavigationType);
+            var result = NavigateToElement(htmlNode, htmlNavigationType);
             while (result != null && !predicate(result))
             {
-                result = GetNextElement(result, predicate, htmlNavigationType);
+                result = NavigateToElement(result, predicate, htmlNavigationType);
             }
 
             return result;
         }
 
-        internal static HtmlNode GetNextElementOfType(this HtmlNode htmlNode, string typeName, HtmlNavigationType htmlNavigationType)
+        internal static HtmlNode NavigateToElementOfType(this HtmlNode htmlNode, string typeName, HtmlNavigationType htmlNavigationType)
         {
-            var result = GetNextElement(htmlNode, htmlNavigationType);
+            var result = NavigateToElement(htmlNode, htmlNavigationType);
             while (result != null && result.Name != typeName)
             {
-                result = GetNextElement(result, htmlNavigationType);
+                result = NavigateToElement(result, htmlNavigationType);
             }
 
             return result;
         }
 
-        private static HtmlNode GetNextElement(HtmlNode htmlNode, HtmlNavigationType htmlNavigationType)
+        private static HtmlNode NavigateToElement(HtmlNode htmlNode, HtmlNavigationType htmlNavigationType)
         {
             switch (htmlNavigationType)
             {

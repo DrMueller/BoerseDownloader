@@ -49,7 +49,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
                 return result;
             }
 
-            result = spoilerContainer.GetNextElementOfType("#text", Model.Enumerations.HtmlNavigationType.PreviousSibling);
+            result = spoilerContainer.NavigateToElementOfType("#text", Model.Enumerations.HtmlNavigationType.PreviousSibling);
             bool uploadedFound = false;
 
             while (!uploadedFound)
@@ -64,7 +64,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
                 }
                 else
                 {
-                    result = result.GetNextElementOfType("#text", Model.Enumerations.HtmlNavigationType.PreviousSibling);
+                    result = result.NavigateToElementOfType("#text", Model.Enumerations.HtmlNavigationType.PreviousSibling);
                 }
             }
 

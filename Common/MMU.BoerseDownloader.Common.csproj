@@ -57,12 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\DownloadException.cs" />
     <Compile Include="Infrastructure\CollectionExtensions.cs" />
     <Compile Include="Infrastructure\StringExtensions.cs" />
     <Compile Include="Interfaces\IUnityInitializer.cs" />
-<Compile Include="Properties\AssemblyInfo.cs"> 
-  <ExcludeFromStyleCop>true</ExcludeFromStyleCop> 
-</Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Singletons\UnityContainerSingleton.cs" />
   </ItemGroup>
   <ItemGroup>

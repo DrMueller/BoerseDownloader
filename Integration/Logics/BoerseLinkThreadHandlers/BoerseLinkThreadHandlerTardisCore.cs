@@ -32,12 +32,12 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
 
             while (!foundBrElement)
             {
-                parentSpan = parentSpan.GetNextElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
-                breakElement = parentSpan.GetNextElementOfType("br", Model.Enumerations.HtmlNavigationType.PreviousSibling);
+                parentSpan = parentSpan.NavigateToElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
+                breakElement = parentSpan.NavigateToElementOfType("br", Model.Enumerations.HtmlNavigationType.PreviousSibling);
                 foundBrElement = breakElement != null;
             }
 
-            var textElement = breakElement.GetNextElementOfType("#text", Model.Enumerations.HtmlNavigationType.PreviousSibling);
+            var textElement = breakElement.NavigateToElementOfType("#text", Model.Enumerations.HtmlNavigationType.PreviousSibling);
             var result = textElement.InnerText;
 
             if (result.StartsWith("\n"))
@@ -50,7 +50,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
 
         private string GetExternalUrl(HtmlNode singleSpan)
         {
-            var containerSpan = singleSpan.GetNextElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent).GetNextElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
+            var containerSpan = singleSpan.NavigateToElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent).NavigateToElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
             var links = containerSpan.Descendants("a");
             var uploadedLink = links.FirstOrDefault(f => f.InnerText == "Uploaded.net");
 
@@ -85,10 +85,10 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
             var seasonPackSpan = threadHtmlNode.Descendants("span").FirstOrDefault(f => f.InnerText == "Staffel");
             if (seasonPackSpan != null)
             {
-                var parentSpan = seasonPackSpan.GetNextElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
+                var parentSpan = seasonPackSpan.NavigateToElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
                 if (parentSpan != null)
                 {
-                    var uploadedLink = parentSpan.GetNextElement(f => f.Name == "a" && f.InnerText.ContainsCaseInsensitive("Uploaded"), Model.Enumerations.HtmlNavigationType.NextSibling);
+                    var uploadedLink = parentSpan.NavigateToElement(f => f.Name == "a" && f.InnerText.ContainsCaseInsensitive("Uploaded"), Model.Enumerations.HtmlNavigationType.NextSibling);
                     if (uploadedLink != null)
                     {
                         var link = uploadedLink.Attributes["href"].Value;
