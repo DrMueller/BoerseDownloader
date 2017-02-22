@@ -85,6 +85,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Logics\BoerseLinkThreadHandlers\BoerseLinkThreadHandler.cs" />
+    <Compile Include="Logics\BoerseLinkThreadHandlers\BoerseLinkThreadHandlerBauklo.cs" />
     <Compile Include="Logics\BoerseLinkThreadHandlers\BoerseLinkThreadHandlerHellrazor.cs" />
     <Compile Include="Logics\BoerseLinkThreadHandlers\BoerseLinkThreadHandlerKristallprinz.cs" />
     <Compile Include="Logics\BoerseLinkThreadHandlers\BoerseLinkThreadHandlerSerienJk.cs" />

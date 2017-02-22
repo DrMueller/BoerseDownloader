@@ -11,6 +11,8 @@ namespace MMU.BoerseDownloader.Model.Enumerations
         [BoerseLinkProviderNativeName("Kristallprinz")]
         Kristallprinz,
         [BoerseLinkProviderNativeName("Tardis Core")]
-        TardisCore
+        TardisCore,
+        [BoerseLinkProviderNativeName("bauklo")]
+        Bauklo
     }
 }

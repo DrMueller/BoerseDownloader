@@ -86,7 +86,13 @@ namespace MMU.BoerseDownloader.Model
 
             var splittedByPath = DownloadLink.Split(new[] { @"/" }, StringSplitOptions.RemoveEmptyEntries);
             var linkIdentifier = splittedByPath.Last();
-            linkIdentifier = linkIdentifier.Substring(0, linkIdentifier.IndexOf("."));
+
+            var pointIndex = linkIdentifier.IndexOf('.');
+            if (pointIndex > -1)
+            {
+                linkIdentifier = linkIdentifier.Substring(0, pointIndex);
+            }
+
             DownloadLinkIdentifier = linkIdentifier;
         }
     }

@@ -15,6 +15,7 @@ namespace MMU.BoerseDownloader.Integration
             unityContainer.RegisterType<BoerseLinkThreadHandler, BoerseLinkThreadHandlerKristallprinz>(typeof(BoerseLinkThreadHandlerKristallprinz).FullName);
             unityContainer.RegisterType<BoerseLinkThreadHandler, BoerseLinkThreadHandlerSerienJk>(typeof(BoerseLinkThreadHandlerSerienJk).FullName);
             unityContainer.RegisterType<BoerseLinkThreadHandler, BoerseLinkThreadHandlerTardisCore>(typeof(BoerseLinkThreadHandlerTardisCore).FullName);
+            unityContainer.RegisterType<BoerseLinkThreadHandler, BoerseLinkThreadHandlerBauklo>(typeof(BoerseLinkThreadHandlerBauklo).FullName);
         }
     }
 }

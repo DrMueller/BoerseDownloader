@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
 using MMU.BoerseDownloader.Common.Exceptions;
@@ -52,7 +51,8 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
                 }
 
                 cnter++;
-            } while (checkedSubElement.Name != "div" && cnter < titlesContainer.ChildNodes.Count);
+            }
+            while (checkedSubElement.Name != "div" && cnter < titlesContainer.ChildNodes.Count);
 
             var result = new DownloadEntryTitleCollection(titlesOfActualEpisodes);
             return result;
@@ -89,7 +89,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
             {
                 var uploadedElements = actualEpisdesDivElement.Descendants("a").Where(f => f.InnerText == "Uploaded");
 
-                foreach(var uploadedEle in uploadedElements)
+                foreach (var uploadedEle in uploadedElements)
                 {
                     var downloadLink = uploadedEle.Attributes.First(f => f.Name == "href").Value;
                     var parentSpan = uploadedEle.NavigateToElementOfType("span", Model.Enumerations.HtmlNavigationType.Parent);
@@ -101,12 +101,6 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
                     }
 
                     var entryTitles = GetDownloadEntryTitles(spanWithTitles);
-
-                    //var title = spanWithTitles.InnerText;
-                    //if (title.StartsWith("\n"))
-                    //{
-                    //    title = title.Substring(1);
-                    //}
 
                     var lastUploadDate = GetLastThreadUpdate(threadHtmlNode);
                     var newEntry = new DownloadEntry(downloadContext.Name, downloadLink, entryTitles, lastUploadDate, false);
@@ -125,7 +119,7 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
         private bool TryReadingActualEpisodesDivElement(HtmlNode threadHtmlNode, out HtmlNode actualEpisodesDivElement)
         {
             var spanByDescription = threadHtmlNode.Descendants("span").FirstOrDefault(f => f.InnerText.Contains("Aktuelle Episode(n)"));
-            
+
             if (spanByDescription == null)
             {
                 var seasonPackSpan = threadHtmlNode.Descendants("span").FirstOrDefault(f => f.InnerText.StartsWith("Staffelpack"));
@@ -179,16 +173,14 @@ namespace MMU.BoerseDownloader.Integration.Logics.BoerseLinkThreadHandlers
                 result.Add(seasonPack);
             }
 
-
             var actualEpisodes = ReadActualEpisodes(threadHtmlNode, downloadContext);
-            foreach(var actualEpisode in actualEpisodes)
+            foreach (var actualEpisode in actualEpisodes)
             {
                 if (seasonPack == null || actualEpisode.DownloadLink != seasonPack.DownloadLink)
                 {
                     result.Add(actualEpisode);
                 }
             }
-
 
             return result.AsReadOnly();
         }
